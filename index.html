@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Family Barber Shop — Presentación I Launch U</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;font-family:'Inter',sans-serif;background:#000;color:#fff;overflow:hidden;}
+
+/* SLIDE ENGINE */
+.deck{width:100%;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;padding:60px;opacity:0;transition:opacity .5s;}
+.slide.active{display:flex;opacity:1;}
+
+/* NAVIGATION */
+.nav-dots{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:100;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;}
+.dot.active{background:#FF8C00;transform:scale(1.3);}
+.arrows{position:fixed;bottom:20px;right:40px;display:flex;gap:12px;z-index:100;}
+.arr{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1rem;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.arr:hover{background:#FF8C00;border-color:#FF8C00;}
+.slide-num{position:fixed;bottom:28px;left:40px;font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:2px;z-index:100;}
+
+/* COMMON */
+.tag{display:inline-block;background:rgba(255,140,0,.12);border:1px solid rgba(255,140,0,.3);color:#FF8C00;padding:6px 18px;border-radius:4px;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;font-weight:600;margin-bottom:20px;}
+.gold{color:#FF8C00;}
+.teal{color:#00c9d4;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;margin-bottom:16px;}
+h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.1;margin-bottom:14px;}
+h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;}
+p{color:rgba(255,255,255,.75);line-height:1.8;font-size:.95rem;}
+.divider{width:50px;height:3px;background:linear-gradient(90deg,#FF8C00,transparent);border-radius:2px;margin:16px 0;}
+
+/* SLIDE 1 — COVER */
+#s1{background:radial-gradient(ellipse at 30% 60%,rgba(13,110,133,.2) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(255,140,0,.08) 0%,transparent 50%),linear-gradient(160deg,#040d1a 0%,#051628 100%);text-align:center;}
+#s1 h1{font-size:clamp(2rem,6vw,4.5rem);}
+#s1 .subtitle{font-size:1.1rem;color:rgba(255,255,255,.6);margin-top:10px;letter-spacing:2px;}
+#s1 .presenter{margin-top:40px;display:flex;align-items:center;justify-content:center;gap:16px;}
+#s1 .presenter-name{font-size:1rem;font-weight:700;color:#fff;}
+#s1 .presenter-title{font-size:.8rem;color:rgba(255,255,255,.5);}
+
+/* SLIDE 2 — PROBLEMA */
+#s2{background:linear-gradient(135deg,#040d1a,#0a0020);align-items:flex-start;}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%;margin-top:30px;}
+.prob-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 22px;position:relative;overflow:hidden;}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FF3B30,transparent);}
+.prob-icon{font-size:2rem;margin-bottom:14px;color:#FF3B30;}
+
+/* SLIDE 3 — META */
+#s3{background:linear-gradient(160deg,#040d1a,#051820);text-align:center;}
+.goal-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;width:100%;max-width:1000px;margin-top:36px;}
+.goal-card{background:rgba(0,180,210,.06);border:1px solid rgba(0,180,210,.2);border-radius:16px;padding:32px 24px;text-align:center;}
+.goal-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;background:linear-gradient(135deg,#00c9d4,#FF8C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:8px;}
+
+/* SLIDE 4 — ESTRATEGIA */
+#s4{background:linear-gradient(135deg,#040d1a,#0a1a10);align-items:flex-start;}
+.strat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;width:100%;margin-top:28px;}
+.strat-item{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:20px;}
+.strat-icon{width:46px;height:46px;flex-shrink:0;background:rgba(255,140,0,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#FF8C00;font-size:1.1rem;}
+
+/* SLIDE 5 — REDES SOCIALES */
+#s5{background:linear-gradient(135deg,#040d1a,#1a0a20);align-items:flex-start;}
+.social-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;margin-top:28px;}
+.social-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px 22px;text-align:center;}
+.social-icon{font-size:2.5rem;margin-bottom:14px;}
+
+/* SLIDE 6 — WEBSITE + CRM */
+#s6{background:linear-gradient(160deg,#040d1a,#000a20);align-items:flex-start;}
+.feature-list{list-style:none;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(0,180,210,.1);border-radius:10px;padding:16px;}
+.feature-list li i{color:#00c9d4;margin-top:2px;flex-shrink:0;}
+
+/* SLIDE 7 — AI AGENT */
+#s7{background:radial-gradient(ellipse at 50% 50%,rgba(0,180,210,.08),transparent 70%),linear-gradient(135deg,#040d1a,#050520);text-align:center;}
+.ai-features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:100%;max-width:1000px;margin-top:36px;}
+.ai-feat{background:rgba(0,180,210,.05);border:1px solid rgba(0,180,210,.15);border-radius:14px;padding:24px 16px;text-align:center;}
+.ai-feat i{font-size:1.8rem;color:#00c9d4;margin-bottom:12px;display:block;}
+.ai-feat p{font-size:.82rem;color:rgba(255,255,255,.6);}
+
+/* SLIDE 8 — COMPARACIÓN $ */
+#s8{background:linear-gradient(135deg,#040d1a,#0a1a00);text-align:center;}
+.compare-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:30px;align-items:center;width:100%;max-width:900px;margin-top:36px;}
+.compare-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px 28px;text-align:center;}
+.compare-box.after{background:rgba(255,140,0,.06);border-color:rgba(255,140,0,.3);}
+.compare-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px;}
+.compare-amount{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;display:block;margin-bottom:8px;}
+.compare-sub{font-size:.8rem;color:rgba(255,255,255,.5);}
+.compare-arrow{font-size:3rem;color:#FF8C00;}
+.bar-wrap{margin-top:30px;width:100%;max-width:700px;}
+.bar-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.bar-label{width:100px;font-size:.8rem;color:rgba(255,255,255,.6);text-align:right;flex-shrink:0;}
+.bar-track{flex:1;height:36px;background:rgba(255,255,255,.06);border-radius:8px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:14px;font-weight:700;font-size:.85rem;transition:width 1.5s ease;}
+.bar-now{background:rgba(255,255,255,.15);width:35%;}
+.bar-after{background:linear-gradient(90deg,#FF8C00,#FFD700);width:90%;}
+
+/* SLIDE 9 — OFERTA */
+#s9{background:linear-gradient(135deg,#040d1a,#1a000a);text-align:center;}
+.offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:1000px;margin-top:32px;}
+.offer-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 20px;}
+.offer-card.featured{background:rgba(255,140,0,.08);border-color:rgba(255,140,0,.4);position:relative;}
+.offer-card.featured::before{content:'RECOMENDADO';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#FF8C00;color:#000;font-size:.6rem;font-weight:700;letter-spacing:2px;padding:4px 14px;border-radius:20px;}
+.offer-price{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#FF8C00;display:block;margin:12px 0;}
+.offer-list{list-style:none;text-align:left;margin-top:14px;}
+.offer-list li{font-size:.8rem;color:rgba(255,255,255,.65);padding:5px 0;display:flex;gap:8px;align-items:flex-start;}
+.offer-list li::before{content:'✓';color:#00c9d4;font-weight:700;flex-shrink:0;}
+
+/* SLIDE 10 — CTA */
+#s10{background:radial-gradient(ellipse at 50% 40%,rgba(255,140,0,.12),transparent 60%),linear-gradient(160deg,#040d1a,#051628);text-align:center;}
+#s10 h1{font-size:clamp(2rem,5vw,4rem);}
+.cta-btn{display:inline-block;background:linear-gradient(135deg,#FF8C00,#CC5500);color:#fff;padding:18px 48px;border-radius:50px;font-weight:700;font-size:1rem;letter-spacing:2px;text-transform:uppercase;margin-top:32px;text-decoration:none;box-shadow:0 8px 30px rgba(255,140,0,.3);}
+.contact-info{display:flex;gap:32px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
+.ci{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.6);font-size:.9rem;}
+.ci i{color:#FF8C00;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .slide{padding:30px 20px;}
+  .problem-grid,.goal-cards,.strat-grid,.social-row,.offer-grid,.ai-features{grid-template-columns:1fr;}
+  .compare-wrap{grid-template-columns:1fr;gap:16px;}
+  .compare-arrow{transform:rotate(90deg);}
+  .feature-list{grid-template-columns:1fr;}
+  h1{font-size:2rem;}h2{font-size:1.6rem;}
+  .bar-label{width:70px;font-size:.7rem;}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="s1">
+  <div class="tag">Presentación Exclusiva</div>
+  <h1>Duplica o <span class="gold">Triplica</span><br/>tus Ganancias</h1>
+  <p class="subtitle">Estrategia de Marketing Digital para<br/><strong style="color:#fff;">The Family Barber Shop</strong></p>
+  <div class="divider" style="margin:20px auto;"></div>
+  <div class="presenter">
+    <div>
+      <div class="presenter-name">David Medina</div>
+      <div class="presenter-title">Business Coach & Marketing Strategist — I Launch U</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: EL PROBLEMA -->
+<div class="slide" id="s2">
+  <div class="tag">El Problema</div>
+  <h2>¿Qué Está <span class="gold">Limitando</span> tu Crecimiento?</h2>
+  <div class="divider"></div>
+  <div class="problem-grid">
+    <div class="prob-card">
+      <div class="prob-icon"><i class="fas fa-user-friends"></i></div>
+      <h3>Solo Referidos</h3>
+      <p>Depender únicamente de referidos y clientes viejos limita tu audiencia. Si ellos no vuelven, tu ingreso se detiene.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon"><i class="fas fa-map-marker-slash"></i></div>
+      <h3>Clientes Nuevos te Pasan de Largo</h3>
+      <p>Personas nuevas que se mudan al área, turistas que visitan Disney y los parques — nunca llegan porque no te encuentran online.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon"><i class="fas fa-calendar-times"></i></div>
+      <h3>Días Flojos Sin Clientes</h3>
+      <p>Sin estrategia, hay días que la barbería está lenta. Eso es dinero perdido que nunca vuelve.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: LA META -->
+<div class="slide" id="s3">
+  <div class="tag">La Meta</div>
+  <h2>Nuestra <span class="gold">Visión</span> Para Ustedes</h2>
+  <div class="divider" style="margin:14px auto;"></div>
+  <p style="max-width:650px;text-align:center;">Con las estrategias correctas, ejecución consistente y marketing adecuado para tu industria, esto es lo que podemos lograr juntos.</p>
+  <div class="goal-cards">
+    <div class="goal-card">
+      <span class="goal-num">2x</span>
+      <h3>Duplicar Ingresos</h3>
+      <p style="font-size:.85rem;">Meta mínima — duplicar lo que cada barbero está ganando hoy.</p>
+    </div>
+    <div class="goal-card">
+      <span class="goal-num">3x</span>
+      <h3>Triplicar Ingresos</h3>
+      <p style="font-size:.85rem;">Meta ambiciosa — con publicidad pagada activa y estrategia completa.</p>
+    </div>
+    <div class="goal-card">
+      <span class="goal-num">+$</span>
+      <h3>Clientes Nuevos Constantes</h3>
+      <p style="font-size:.85rem;">Un flujo predecible de clientes nuevos cada semana, todo el año.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: ESTRATEGIA -->
+<div class="slide" id="s4">
+  <div class="tag">Cómo lo Hacemos</div>
+  <h2>Las <span class="gold">3 Claves</span> del Éxito</h2>
+  <div class="divider"></div>
+  <div class="strat-grid">
+    <div class="strat-item">
+      <div class="strat-icon"><i class="fas fa-bullseye"></i></div>
+      <div>
+        <h3>Estrategias Adecuadas</h3>
+        <p>Detalladas específicamente para la industria de la barbería. No estrategias genéricas — exactamente lo que funciona para tu tipo de negocio.</p>
+      </div>
+    </div>
+    <div class="strat-item">
+      <div class="strat-icon"><i class="fas fa-rocket"></i></div>
+      <div>
+        <h3>Ejecución</h3>
+        <p>Una buena estrategia sin ejecución no vale nada. Nosotros ejecutamos contigo, paso a paso, con resultados medibles.</p>
+      </div>
+    </div>
+    <div class="strat-item">
+      <div class="strat-icon"><i class="fas fa-repeat"></i></div>
+      <div>
+        <h3>Consistencia</h3>
+        <p>Sin consistencia no hay resultados sostenibles. Implementamos sistemas que trabajan para ti todos los días, incluso cuando no estás.</p>
+      </div>
+    </div>
+    <div class="strat-item">
+      <div class="strat-icon"><i class="fas fa-chart-line"></i></div>
+      <div>
+        <h3>El Marketing es el Cashflow</h3>
+        <p>El marketing es lo que mantiene el dinero fluyendo en cualquier compañía. Sin él, estás a la merced de los referidos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: REDES SOCIALES -->
+<div class="slide" id="s5">
+  <div class="tag">Publicidad Pagada</div>
+  <h2>Presencia en <span class="gold">Redes Sociales</span></h2>
+  <div class="divider"></div>
+  <div class="social-row">
+    <div class="social-card">
+      <div class="social-icon"><i class="fab fa-meta" style="color:#1877F2;"></i></div>
+      <h3>Meta / Facebook</h3>
+      <p>Donde está toda tu audiencia. Campañas que establecen tu marca, crean relación con el público y aumentan tu credibilidad mostrando tu portfolio.</p>
+    </div>
+    <div class="social-card">
+      <div class="social-icon"><i class="fab fa-google" style="color:#EA4335;"></i></div>
+      <h3>Google Ads</h3>
+      <p>Aparece cuando alguien busca "barbero cerca de mí" — personas listas para reservar cita ahora mismo. ROI alto y medible.</p>
+    </div>
+    <div class="social-card">
+      <div class="social-icon"><i class="fab fa-tiktok" style="color:#fff;"></i></div>
+      <h3>TikTok</h3>
+      <p>Alcance orgánico masivo y publicidad para llegar al público joven. Los videos de transformaciones viralizan y traen clientes nuevos constantemente.</p>
+    </div>
+  </div>
+  <p style="margin-top:24px;text-align:center;max-width:700px;font-size:.85rem;">📍 <strong style="color:#fff;">Turistas de Disney y nuevos residentes</strong> del área — personas que buscan barbero en Google o ven tu trabajo en redes. Con publicidad activa, ellos te encuentran a <em>ti</em>.</p>
+</div>
+
+<!-- SLIDE 6: WEBSITE + CRM -->
+<div class="slide" id="s6">
+  <div class="tag">Presencia Digital</div>
+  <h2>Website Profesional <span class="gold">+ CRM</span></h2>
+  <div class="divider"></div>
+  <ul class="feature-list">
+    <li><i class="fas fa-scissors"></i><div><strong>Perfil de cada barbero</strong> — portfolio de sus mejores cortes, enlace a redes sociales, fotos de sus trabajos directamente en el website.</div></li>
+    <li><i class="fas fa-calendar-check"></i><div><strong>Sistema de citas automático</strong> — conectado con Booksy u otro calendario. Los clientes reservan solos, sin llamadas.</div></li>
+    <li><i class="fas fa-robot"></i><div><strong>Agente de IA</strong> — habla con los clientes, les pregunta qué quieren y agenda la cita por ustedes automáticamente 24/7.</div></li>
+    <li><i class="fas fa-lock"></i><div><strong>Cobro para asegurar cita</strong> — los clientes pagan un depósito para reservar. Eliminan los no-shows y protegen su tiempo.</div></li>
+    <li><i class="fas fa-envelope"></i><div><strong>CRM automatizado</strong> — mensajes automáticos de confirmación, recordatorios, seguimiento post-visita y reactivación de clientes.</div></li>
+    <li><i class="fas fa-star"></i><div><strong>Sistema de reseñas</strong> — solicitud automática de reseñas en Google para aumentar credibilidad y aparecer más alto en búsquedas.</div></li>
+  </ul>
+</div>
+
+<!-- SLIDE 7: AI AGENT -->
+<div class="slide" id="s7">
+  <div class="tag">Inteligencia Artificial</div>
+  <h2>Tu <span class="teal">Empleado de IA</span><br/>Trabaja 24/7</h2>
+  <div class="divider" style="margin:14px auto;"></div>
+  <p style="max-width:600px;text-align:center;">Imagina tener un empleado que nunca duerme, nunca falla, y atiende a cada cliente perfectamente — sin costo extra.</p>
+  <div class="ai-features">
+    <div class="ai-feat">
+      <i class="fas fa-comments"></i>
+      <h3>Responde Mensajes</h3>
+      <p>Atiende clientes en Instagram, Facebook, SMS y WhatsApp al instante.</p>
+    </div>
+    <div class="ai-feat">
+      <i class="fas fa-calendar-plus"></i>
+      <h3>Agenda Citas</h3>
+      <p>Pregunta qué servicio quieren y agenda la cita automáticamente.</p>
+    </div>
+    <div class="ai-feat">
+      <i class="fas fa-bell"></i>
+      <h3>Envía Recordatorios</h3>
+      <p>Recordatorios automáticos para reducir no-shows y cancelaciones.</p>
+    </div>
+    <div class="ai-feat">
+      <i class="fas fa-tag"></i>
+      <h3>Vende Especiales</h3>
+      <p>Promociona los especiales de los días flojos para llenar el calendario.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: COMPARACIÓN $ -->
+<div class="slide" id="s8">
+  <div class="tag">El Impacto Real</div>
+  <h2>Tu Dinero <span class="gold">Antes vs. Después</span></h2>
+  <div class="divider" style="margin:14px auto;"></div>
+  <div class="compare-wrap">
+    <div class="compare-box">
+      <div class="compare-label">HOY — Sin Marketing</div>
+      <span class="compare-amount" style="color:rgba(255,255,255,.5);">$6,000</span>
+      <div class="compare-sub">por mes / por barbero</div>
+      <p style="font-size:.78rem;margin-top:14px;color:rgba(255,255,255,.4);">Solo referidos. Días flojos sin clientes. Sin crecimiento predecible.</p>
+    </div>
+    <div class="compare-arrow"><i class="fas fa-arrow-right"></i></div>
+    <div class="compare-box after">
+      <div class="compare-label">CON I LAUNCH U</div>
+      <span class="compare-amount" style="color:#FF8C00;">$12K–$18K</span>
+      <div class="compare-sub">por mes / por barbero</div>
+      <p style="font-size:.78rem;margin-top:14px;color:rgba(255,255,255,.6);">Flujo constante de clientes nuevos. Días flojos convertidos en días llenos. Crecimiento predecible.</p>
+    </div>
+  </div>
+  <div class="bar-wrap">
+    <div class="bar-row">
+      <div class="bar-label">Sin Marketing</div>
+      <div class="bar-track"><div class="bar-fill bar-now">$6K/mes</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Con Marketing</div>
+      <div class="bar-track"><div class="bar-fill bar-after">$12K–$18K/mes</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: OFERTA -->
+<div class="slide" id="s9">
+  <div class="tag">Planes de Inversión</div>
+  <h2>Elige Tu <span class="gold">Plan de Acción</span></h2>
+  <div class="divider" style="margin:14px auto;"></div>
+  <div class="offer-grid">
+    <div class="offer-card">
+      <h3>Starter</h3>
+      <span class="offer-price">$997<small style="font-size:1rem;">/mes</small></span>
+      <ul class="offer-list">
+        <li>Manejo de Redes Sociales</li>
+        <li>Campañas Meta Ads</li>
+        <li>Website Profesional</li>
+        <li>CRM + Automatización básica</li>
+      </ul>
+    </div>
+    <div class="offer-card featured">
+      <h3>Growth</h3>
+      <span class="offer-price">$1,497<small style="font-size:1rem;">/mes</small></span>
+      <ul class="offer-list">
+        <li>Todo lo del plan Starter</li>
+        <li>Google Ads + TikTok Ads</li>
+        <li>Agente de IA 24/7</li>
+        <li>Sistema de citas + depósito</li>
+        <li>Reportes mensuales</li>
+      </ul>
+    </div>
+    <div class="offer-card">
+      <h3>Elite</h3>
+      <span class="offer-price">$2,497<small style="font-size:1rem;">/mes</small></span>
+      <ul class="offer-list">
+        <li>Todo lo del plan Growth</li>
+        <li>Coaching mensual 1-a-1</li>
+        <li>Ofertas y especiales semanales</li>
+        <li>Sistema completo de reseñas</li>
+        <li>Soporte prioritario</li>
+        <li>Estrategia personalizada</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: CTA -->
+<div class="slide" id="s10">
+  <div class="tag">Próximo Paso</div>
+  <h1>¿Listos Para<br/><span class="gold">Triplicar</span> Sus Ganancias?</h1>
+  <div class="divider" style="margin:20px auto;"></div>
+  <p style="max-width:600px;text-align:center;font-size:1rem;">El marketing predecible es lo que separa una barbería que sobrevive de una que crece. Demos el primer paso juntos — hoy.</p>
+  <a href="tel:2393102025" class="cta-btn">Agendar Consulta Gratis</a>
+  <div class="contact-info">
+    <div class="ci"><i class="fas fa-phone"></i><span>239-310-2025</span></div>
+    <div class="ci"><i class="fab fa-instagram"></i><span>@i_launch_u</span></div>
+    <div class="ci"><i class="fas fa-globe"></i><span>ilaunchyou.com</span></div>
+  </div>
+</div>
+
+</div>
+
+<!-- CONTROLS -->
+<div class="slide-num" id="snum">01 / 10</div>
+<div class="nav-dots" id="dots"></div>
+<div class="arrows">
+  <button class="arr" onclick="prev()"><i class="fas fa-chevron-left"></i></button>
+  <button class="arr" onclick="next()"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('dots');
+const snumEl = document.getElementById('snum');
+let cur = 0;
+
+// Create dots
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  document.querySelectorAll('.dot')[cur].classList.remove('active');
+  cur = (n + slides.length) % slides.length;
+  slides[cur].classList.add('active');
+  document.querySelectorAll('.dot')[cur].classList.add('active');
+  snumEl.textContent = String(cur+1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+}
+function next() { goTo(cur+1); }
+function prev() { goTo(cur-1); }
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key===' ') next();
+  if(e.key==='ArrowLeft') prev();
+});
+
+// Touch swipe
+let tx = 0;
+document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if(Math.abs(dx) > 50) dx < 0 ? next() : prev();
+});
+</script>
+</body>
+</html>
