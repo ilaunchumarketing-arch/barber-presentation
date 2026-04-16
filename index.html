@@ -4,11 +4,12 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>The Family Barber Shop — Presentación I Launch U</title>
+<link rel="icon" href="logo.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;height:100%;font-family:'Inter',sans-serif;background:#000;color:#fff;overflow:hidden;}
+html,body{width:100%;height:100%;font-family:'Inter',sans-serif;background:#040d1a;color:#fff;overflow:hidden;}
 
 /* SLIDE ENGINE */
 .deck{width:100%;height:100vh;position:relative;}
@@ -19,6 +20,29 @@ html,body{width:100%;height:100%;font-family:'Inter',sans-serif;background:#000;
 .nav-dots{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:100;}
 .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s;}
 .dot.active{background:#FF8C00;transform:scale(1.3);}
+
+/* LOGO BAR */
+.logo-bar{position:fixed;top:20px;left:40px;z-index:200;display:flex;align-items:center;gap:10px;}
+.logo-bar img{height:32px;border-radius:6px;}
+.logo-bar span{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;background:linear-gradient(135deg,#00c9d4,#FF8C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;}
+
+/* CASE STUDY SLIDE */
+#s8cs{background:linear-gradient(160deg,#040d1a,#001a10);}
+.case-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;width:100%;margin-top:28px;align-items:start;}
+.case-profile{background:rgba(0,180,210,.06);border:1px solid rgba(0,180,210,.2);border-radius:20px;padding:32px;text-align:center;}
+.case-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#FF8C00,#00c9d4);display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:900;color:#040d1a;margin:0 auto 16px;}
+.case-name{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
+.case-tag{display:inline-block;background:rgba(255,140,0,.12);border:1px solid rgba(255,140,0,.3);color:#FF8C00;padding:4px 14px;border-radius:20px;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin:10px 0;}
+.case-stat{margin-top:20px;}
+.case-income{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#FF8C00,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.case-income-label{font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;}
+.case-keys{display:flex;flex-direction:column;gap:14px;}
+.case-key{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px;}
+.case-key-icon{width:42px;height:42px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.ck1{background:rgba(255,140,0,.12);color:#FF8C00;}
+.ck2{background:rgba(0,180,210,.12);color:#00c9d4;}
+.ck3{background:rgba(255,215,0,.12);color:#FFD700;}
+.ck4{background:rgba(138,43,226,.12);color:#9B59B6;}
 .arrows{position:fixed;bottom:20px;right:40px;display:flex;gap:12px;z-index:100;}
 .arr{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1rem;transition:all .3s;display:flex;align-items:center;justify-content:center;}
 .arr:hover{background:#FF8C00;border-color:#FF8C00;}
@@ -129,6 +153,10 @@ p{color:rgba(255,255,255,.75);line-height:1.8;font-size:.95rem;}
 </style>
 </head>
 <body>
+<div class="logo-bar">
+  <img src="logo.jpg" alt="I Launch U"/>
+  <span>I Launch U</span>
+</div>
 <div class="deck">
 
 <!-- SLIDE 1: COVER -->
@@ -301,6 +329,55 @@ p{color:rgba(255,255,255,.75);line-height:1.8;font-size:.95rem;}
   </div>
 </div>
 
+<!-- SLIDE 8CS: CASO DE ÉXITO -->
+<div class="slide" id="s8cs">
+  <div class="tag">Caso de Éxito Real</div>
+  <h2>Un Barbero Ejemplar <span class="gold">Ya Lo Está Haciendo</span></h2>
+  <div class="divider"></div>
+  <div class="case-wrap">
+    <div class="case-profile">
+      <div class="case-avatar">✂️</div>
+      <div class="case-name">Barbero Ejemplar</div>
+      <div class="case-tag">Caso Real de Éxito</div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.6);margin-top:10px;">Barbero con presencia sólida en redes sociales, servicios premium y clientela de alto poder adquisitivo.</p>
+      <div class="case-stat">
+        <div class="case-income">$9K–$11K</div>
+        <div class="case-income-label">facturación mensual</div>
+      </div>
+    </div>
+    <div class="case-keys">
+      <div class="case-key">
+        <div class="case-key-icon ck1"><i class="fas fa-repeat"></i></div>
+        <div>
+          <h3 style="color:#FF8C00;">Constancia en Redes Sociales</h3>
+          <p>Publica contenido de calidad consistentemente. Eso construye autoridad, confianza y una audiencia leal que sigue creciendo sola.</p>
+        </div>
+      </div>
+      <div class="case-key">
+        <div class="case-key-icon ck2"><i class="fas fa-crown"></i></div>
+        <div>
+          <h3 style="color:#00c9d4;">Autoridad de Marca</h3>
+          <p>Cuando te perciben como el mejor en tu industria, los clientes llegan a ti — y están dispuestos a pagar más sin negociar el precio.</p>
+        </div>
+      </div>
+      <div class="case-key">
+        <div class="case-key-icon ck3"><i class="fas fa-gem"></i></div>
+        <div>
+          <h3 style="color:#FFD700;">Servicios Lujosos y Premium</h3>
+          <p>Ofrece experiencias y servicios adicionales de alto valor — tratamientos, productos exclusivos, paquetes VIP. Clientes con buen dinero pagan por la experiencia.</p>
+        </div>
+      </div>
+      <div class="case-key">
+        <div class="case-key-icon ck4"><i class="fas fa-users"></i></div>
+        <div>
+          <h3 style="color:#9B59B6;">Clientela Selecta</h3>
+          <p>Al posicionarte bien, atraes un tipo de cliente diferente — ejecutivos, profesionales, personas que valoran la calidad y vuelven cada semana.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SLIDE 8: COMPARACIÓN $ -->
 <div class="slide" id="s8">
   <div class="tag">El Impacto Real</div>
@@ -375,7 +452,7 @@ p{color:rgba(255,255,255,.75);line-height:1.8;font-size:.95rem;}
   </div>
 </div>
 
-<!-- SLIDE 10: CTA -->
+<!-- SLIDE 11: CTA -->
 <div class="slide" id="s10">
   <div class="tag">Próximo Paso</div>
   <h1>¿Listos Para<br/><span class="gold">Triplicar</span> Sus Ganancias?</h1>
@@ -420,6 +497,12 @@ function goTo(n) {
   slides[cur].classList.add('active');
   document.querySelectorAll('.dot')[cur].classList.add('active');
   snumEl.textContent = String(cur+1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+  // Animate bars on slide 9 (comparison)
+  if(cur===8){
+    setTimeout(()=>{
+      document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.classList.contains('bar-after')?'90%':'35%');
+    },300);
+  }
 }
 function next() { goTo(cur+1); }
 function prev() { goTo(cur-1); }
